@@ -30,6 +30,26 @@ Vue.use(VueRouter)
         name: '添加用户',
         component: () => import("@/views/User/UserAdd.vue")
       },
+      {
+        path: '/user/update',
+        name: '修改用户信息',
+        component:() => import("@/views/User/UserUpdate.vue")
+      },
+      {
+        path:"/role/queryall",
+        name:"用户一览",
+        component:()=> import("@/views/Role/RoleQueryall.vue")
+      },
+      {
+        path:"/role/add",
+        name:"添加角色",
+        component:()=> import("@/views/Role/RoleAdd.vue")
+      },
+      {
+        path:"/role/update",
+        name:"修改角色信息",
+        component:()=> import("@/views/Role/RoleUpdate.vue")
+      },
     ]
   },
 ]

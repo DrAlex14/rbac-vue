@@ -114,7 +114,6 @@
       }
     },
     components: {
-      //validateCode
     }
   };
 </script>

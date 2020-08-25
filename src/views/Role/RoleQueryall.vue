@@ -6,25 +6,28 @@
         style="width: 100%">
             <el-table-column
             prop="id"
-            label="用户编号"
+            label="角色编号"
             width="250">
             </el-table-column>
             <el-table-column
-            prop="username"
-            label="姓名"
+            prop="name"
+            label="角色名"
             width="250">
             </el-table-column>
             <el-table-column
             prop="roleid"
-            label="身份编号"
+            label="角色权限"
             width="250">
+              <template slot-scope="scope">
+                <el-button @click="queryPremission(scope.row)" type="primary" size="small">角色权限</el-button>
+              </template>
             </el-table-column>
             <el-table-column
             fixed="right"
             label="操作"
             width="250">
             <template slot-scope="scope">
-                <el-button @click="handleClick(scope.row)" type="text" size="small">修改用户角色</el-button>
+                <el-button @click="handleClick(scope.row)" type="text" size="small">修改角色信息</el-button>
                 <el-button @click="del(scope.row)" type="text" size="small">删除</el-button>
             </template>
             </el-table-column>
@@ -37,14 +40,17 @@ import Axios from "axios";
 import qs from "qs";
 export default {
     methods: {
+      queryPremission(row){
+        console.log(row);
+      },
       handleClick(row) {
         console.log(row);
-        this.$router.push({path:"/user/update",query:{row}})
+        this.$router.push({path:"/role/update",query:{row}})
       },
       del(row){
         console.log(row);
         const _this = this
-        Axios.post("http://localhost:8888/user/delete",qs.stringify(row)).then(resp=>{
+        Axios.post("http://localhost:8888/role/delete",qs.stringify(row)).then(resp=>{
           console.log(resp);
                 if(resp.data.data == 1){
                     _this.$message.success("删除成功")
@@ -57,16 +63,22 @@ export default {
     },
     created(){
         const _this = this
-        Axios.get("http://localhost:8888/user/queryall").then(resp=>{
+        Axios.get("http://localhost:8888/role/queryall").then(resp=>{
             console.log(resp.data);
-            _this.tableData = resp.data.data
+            if(resp.data.data != 0){
+              _this.tableData = resp.data.data
+            }else{
+              _this.$message.warning("权限不足")
+              _this.tableData = null
+            }
+            
         })
     },
     data() {
       return {
         tableData: [{
             id: 1,
-            username: '王小虎',
+            name: '王小虎',
             roleid: 1,
         },]
       }

@@ -3,21 +3,20 @@
     <el-container style="height: 800px; border: 1px solid #eee">
       <el-aside width="200px" style="background-color: rgb(129, 159, 182)"> 
         <!-- el-menu中打开router跳转，index为跳转路径 -->
-        <el-menu :default-openeds="['1']" router> 
+        <el-menu router> 
           <el-submenu index="1">
-            <template slot="title"><i class="el-icon-message"></i>用户管理</template>
+            <template slot="title"><i class="el-icon-user"></i>用户管理</template>
               <el-menu-item index="/user/queryall" >用户一览</el-menu-item>
               <el-menu-item index="/user/add">添加用户</el-menu-item>
-              <el-menu-item index="1-3">选项3</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
-            <template slot="title"><i class="el-icon-message"></i>角色管理</template>
-              <el-menu-item index="2-1">选项1</el-menu-item>
-              <el-menu-item index="2-2">选项2</el-menu-item>
+            <template slot="title"><i class="el-icon-menu"></i>角色管理</template>
+              <el-menu-item index="/role/queryall">角色一览</el-menu-item>
+              <el-menu-item index="/role/add">添加角色</el-menu-item>
               <el-menu-item index="2-3">选项3</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
-            <template slot="title"><i class="el-icon-message"></i>权限管理</template>
+            <template slot="title"><i class="el-icon-s-check"></i>权限管理</template>
               <el-menu-item index="3-1">选项1</el-menu-item>
               <el-menu-item index="3-2">选项2</el-menu-item>
               <el-menu-item index="3-3">选项3</el-menu-item>
@@ -64,7 +63,7 @@
   export default {
     data() {
       return {
-
+        username:''
       }
     }
   };
