@@ -50,6 +50,21 @@ Vue.use(VueRouter)
         name:"修改角色信息",
         component:()=> import("@/views/Role/RoleUpdate.vue")
       },
+      {
+        path:"/role/querypermissons",
+        name:"查看角色权限",
+        component:()=> import("@/views/Role/QueryPermissons.vue")
+      },
+      {
+        path:"/permissions/queryall",
+        name:"查看所有权限",
+        component:()=> import("@/views/permissions/PermissionQueryall.vue")
+      },
+      {
+        path:"/permissions/authorization",
+        name:"授权管理",
+        component:()=> import("@/views/permissions/Authorization.vue")
+      }
     ]
   },
 ]

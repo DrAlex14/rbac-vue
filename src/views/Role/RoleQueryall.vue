@@ -7,12 +7,12 @@
             <el-table-column
             prop="id"
             label="角色编号"
-            width="250">
+            width="200">
             </el-table-column>
             <el-table-column
             prop="name"
             label="角色名"
-            width="250">
+            width="200">
             </el-table-column>
             <el-table-column
             prop="roleid"
@@ -20,6 +20,7 @@
             width="250">
               <template slot-scope="scope">
                 <el-button @click="queryPremission(scope.row)" type="primary" size="small">角色权限</el-button>
+                <el-button @click="authManage(scope.row)" type="primary" size="small">授权</el-button>
               </template>
             </el-table-column>
             <el-table-column
@@ -40,8 +41,13 @@ import Axios from "axios";
 import qs from "qs";
 export default {
     methods: {
+      authManage(row){
+        console.log(row);
+        this.$router.push({path:"/permissions/authorization",query:{row}})
+      },
       queryPremission(row){
         console.log(row);
+        this.$router.push({path:"/role/querypermissons",query:{row}})
       },
       handleClick(row) {
         console.log(row);
@@ -71,7 +77,6 @@ export default {
               _this.$message.warning("权限不足")
               _this.tableData = null
             }
-            
         })
     },
     data() {
@@ -80,7 +85,7 @@ export default {
             id: 1,
             name: '王小虎',
             roleid: 1,
-        },]
+        },],
       }
     }
 }

@@ -2,16 +2,12 @@
     <div>
         <!-- model绑定数据   rules绑定校验规则-->
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            <el-form-item  label="用户编号" prop="id">
-                <el-input disabled v-model="ruleForm.id"></el-input>
+            <el-form-item  label="角色编号" prop="roleid">
+                <el-input disabled v-model="ruleForm.roleid"></el-input>
             </el-form-item>
             
-            <el-form-item label="用户名" prop="username">
-                <el-input disabled v-model="ruleForm.username"></el-input>
-            </el-form-item>
-
-            <el-form-item label="用户角色" prop="password">
-                <el-input v-model="ruleForm.roleid"></el-input>
+            <el-form-item label="角色名" prop="name">
+                <el-input  v-model="ruleForm.name"></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -30,12 +26,14 @@ import Axios from 'axios';
     data() {
       return {
         ruleForm: {
-          id: '123',
-          username: '王小虎',
-          roleid:'',
+          roleid:'1',
+          name: '王小虎',
         },
         rules: {
           roleid:[
+            { required: true, message:'请输入角色编码',trigger: 'blur'}
+          ],
+          name:[
             { required: true, message:'请输入角色编码',trigger: 'blur'}
           ]
         }
@@ -44,7 +42,9 @@ import Axios from 'axios';
     created(){
         console.log(this.$route.query);
         let data = this.$route.query.row
-        this.ruleForm = data;
+        this.ruleForm.roleid = data.id;
+        this.ruleForm.name = data.name;
+        console.log(this.ruleForm);
     },
     methods: {
       submitForm(formName) {
@@ -52,12 +52,12 @@ import Axios from 'axios';
         this.$refs[formName].validate((valid) => {
           if (valid) { //valid为校验结果
             console.log(_this.ruleForm);
-            Axios.post('http://localhost:8888/user/updaterole',qs.stringify(_this.ruleForm)).then(function(resp){
+            Axios.post('http://localhost:8888/role/update',qs.stringify(_this.ruleForm)).then(function(resp){
                 console.log(resp);
                 if(resp.data.data == 1){
                     _this.$message.success("修改成功")
                     setTimeout(()=>{
-                        _this.$router.push("/user/queryall")
+                        _this.$router.push("/role/queryall")
                     },3000)
                 }else{
                     _this.$message.error("修改失败")
